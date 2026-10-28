@@ -31,7 +31,7 @@ ROLES = [
 ROWS = [
     ("EXPERIENCE", ["~20 years · regulated banking & finance"]),
     ("WORKED WITH", ["Wells Fargo · Oracle · Infosys",
-                     "Clients: Charles Schwab · Dow Jones · UNO"]),
+                     "Charles Schwab · Dow Jones · UNO"]),
     ("FOCUS", ["Platform Modernization · Applied AI · Governance"]),
     ("AI PROJECTS", ["Krishna Uvaca · ObserverPrime · Elara · ApplyPilot"]),
     ("EDUCATION", ["Post Graduation - IIIT Bangalore",
@@ -72,22 +72,42 @@ CELL_H = PORT_H / ROWS_N
 FONT_ASCII = 6.9
 
 
-def cutout(photo):
+# Where the person sits in each photo (pixels, after cropping). The crop keeps
+# head + shoulders at roughly the portrait box's aspect ratio (384:408).
+PRESETS = {
+    # Personal_Website/Resume/Selfie.png
+    "website": dict(crop=(40, 20, 832, 860), cx=400, head=(320, 240, 320), face=(360, 160, 220),
+                    shoulder_y=600, shoulder_half=200, shoulder_slope=0.6, chest_y=650, chest_half=250,
+                    wall_y=480, wall_half=(300, 290),
+                    bg_extra=lambda xx, yy: (xx < 230) & (yy < 650 + (230 - xx) * 0.55) & (yy > 480)),
+    # WhatsApp selfie (1200x1600): grey wall, a chair on the left
+    "whatsapp": dict(crop=(150, 300, 1150, 1360), cx=500, head=(430, 260, 400), face=(470, 180, 260),
+                     shoulder_y=800, shoulder_half=220, shoulder_slope=0.5, chest_y=900, chest_half=300,
+                     wall_y=700, wall_half=(330, 330),
+                     bg_extra=lambda xx, yy: (xx < 130) & (yy < 880)),
+}
+
+
+def cutout(photo, preset="website"):
     """Head + shoulders crop and a foreground mask (GrabCut seeded by shape)."""
-    img = cv2.imread(str(photo))
-    img = img[20:860, 40:832]
+    p = PRESETS[preset]
+    x0, y0, x1, y1 = p["crop"]
+    img = cv2.imread(str(photo))[y0:y1, x0:x1]
     h, w = img.shape[:2]
     yy, xx = np.mgrid[0:h, 0:w]
-    cx = 400
+    cx = p["cx"]
+    hy, hrx, hry = p["head"]
+    fy, frx, fry = p["face"]
     mask = np.full((h, w), cv2.GC_PR_BGD, np.uint8)
-    head = ((xx - cx) / 240) ** 2 + ((yy - 320) / 320) ** 2 <= 1
-    shoulders = yy >= 600 + (abs(xx - cx) - 200).clip(0) * 0.6
+    head = ((xx - cx) / hrx) ** 2 + ((yy - hy) / hry) ** 2 <= 1
+    shoulders = yy >= p["shoulder_y"] + (abs(xx - cx) - p["shoulder_half"]).clip(0) * p["shoulder_slope"]
     mask[head | shoulders] = cv2.GC_PR_FGD
-    mask[((xx - cx) / 160) ** 2 + ((yy - 360) / 220) ** 2 <= 1] = cv2.GC_FGD
-    mask[(yy > 650) & (abs(xx - cx) < 250)] = cv2.GC_FGD
-    mask[(yy < 480) & ((xx < cx - 300) | (xx > cx + 290))] = cv2.GC_BGD
+    mask[((xx - cx) / frx) ** 2 + ((yy - fy) / fry) ** 2 <= 1] = cv2.GC_FGD
+    mask[(yy > p["chest_y"]) & (abs(xx - cx) < p["chest_half"])] = cv2.GC_FGD
+    wl, wr = p["wall_half"]
+    mask[(yy < p["wall_y"]) & ((xx < cx - wl) | (xx > cx + wr))] = cv2.GC_BGD
     mask[(yy < 30) & ((xx < cx - 150) | (xx > cx + 150))] = cv2.GC_BGD
-    mask[(xx < 230) & (yy < 650 + (230 - xx) * 0.55) & (yy > 480)] = cv2.GC_BGD
+    mask[p["bg_extra"](xx, yy)] = cv2.GC_BGD
     bgd, fgd = np.zeros((1, 65)), np.zeros((1, 65))
     cv2.grabCut(img, mask, None, bgd, fgd, 8, cv2.GC_INIT_WITH_MASK)
     fg = np.where((mask == cv2.GC_FGD) | (mask == cv2.GC_PR_FGD), 255, 0).astype(np.uint8)
@@ -109,7 +129,10 @@ def ascii_rows(img, fg, invert):
     lum = cv2.resize(gray, (COLS, ROWS_N), interpolation=cv2.INTER_AREA) / 255.0
     m = cv2.resize(fg, (COLS, ROWS_N), interpolation=cv2.INTER_AREA) / 255.0
     tone = 1 - lum if invert else lum
-    v = np.clip(0.82 * tone ** (0.9 if invert else 0.65) + 0.38 * edge, 0, 1)
+    # stretch contrast over the person only, so bright and dark photos both work
+    lo, hi = np.percentile(tone[m >= 0.6], [3, 97])
+    tone = np.clip((tone - lo) / max(hi - lo, 1e-3), 0, 1)
+    v = np.clip(0.78 * tone ** 1.15 + 0.38 * edge, 0, 1)
     rows = []
     for r in range(ROWS_N):
         line = []
@@ -411,9 +434,10 @@ def build_svg(theme, rows):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("photo")
+    ap.add_argument("--preset", choices=sorted(PRESETS), default="website")
     ap.add_argument("--avatar")
     args = ap.parse_args()
-    img, fg = cutout(args.photo)
+    img, fg = cutout(args.photo, args.preset)
     for theme in THEMES:
         rows = ascii_rows(img, fg, invert=(theme == "light"))
         (ROOT / f"{theme}.svg").write_text(build_svg(theme, rows), encoding="utf-8")

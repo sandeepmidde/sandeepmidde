@@ -4,10 +4,6 @@
   <img src="./dark.svg" width="100%" alt="Sandeep Midde - Technology & Delivery Leader. About 20 years modernizing regulated banking and finance platforms; previously VP at Wells Fargo, Oracle and Infosys; building GenAI systems.">
 </picture>
 
-<table width="100%">
-<tr>
-<td width="60%" align="center" valign="middle">
-
 <h1 align="center">Hi 👋, I'm Sandeep Midde</h1>
 
 <h3 align="center">Technology & Delivery Leader • Platform Modernization • Applied AI</h3>
@@ -21,15 +17,6 @@ I've spent about 20 years modernizing legacy platforms in highly regulated envir
 redesigning mission-critical systems for compliance, resilience and scale. These days I design
 and ship GenAI systems end to end: RAG, agentic workflows and knowledge platforms.
 </p>
-
-</td>
-<td width="40%" align="center" valign="middle">
-
-<img src="./assets/face.png" width="300" alt="Sandeep Midde">
-
-</td>
-</tr>
-</table>
 
 <p align="center">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" height="34" alt="Python">&nbsp;&nbsp;

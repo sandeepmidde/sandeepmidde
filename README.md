@@ -54,10 +54,13 @@ with its own evaluation harness.
 
 ### 🎓 Education & certifications
 
-- Post Graduate, Artificial Intelligence & Machine Learning: IIIT Bangalore
-- MBA, IT & Financial Accounting: ICFAI
-- B. Pharmacy (Hons.): BITS Pilani
-- PMP · Microsoft Azure AZ-900 · AI Security & Governance (Securiti) · Salesforce Agentblazer Champion 2026 · Enterprise Product Management Fundamentals (Microsoft) · Oracle Certified PeopleSoft Technical Consultant
+Post Graduation - IIIT Bangalore
+
+MBA - ICFAI
+
+Graduation - BITS-Pilani, Rajasthan
+
+**Certifications:** PMP · Microsoft Azure AZ-900 · AI Security & Governance (Securiti) · Salesforce Agentblazer Champion 2026 · Enterprise Product Management Fundamentals (Microsoft) · Oracle Certified PeopleSoft Technical Consultant
 
 ### ✍️ Writing
 

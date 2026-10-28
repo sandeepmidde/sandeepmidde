@@ -14,7 +14,8 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = Path(__file__).resolve().parent.parent
-W, H = 1180, 610
+W, H = 1180, 680
+CARD_Y, CARD_H = 72, 580
 NBSP = " "  # spaces that SVG renderers never collapse
 MONO = "ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono',monospace"
 
@@ -26,16 +27,21 @@ ROLES = [
     "Principal AI Technical Product Manager",
     "GenAI Systems Builder",
 ]
+# each value is one or more lines
 ROWS = [
-    ("EXPERIENCE", "~20 years · regulated banking & finance"),
-    ("PREVIOUSLY", "VP, Wells Fargo · Oracle · Infosys"),
-    ("FOCUS", "Platform Modernization · Applied AI · Governance"),
-    ("BUILDING", "Krishna Uvaca · ObserverPrime · Elara · ApplyPilot"),
-    ("EDUCATION", "PG AI/ML, IIIT Bangalore · MBA, ICFAI"),
+    ("EXPERIENCE", ["~20 years · regulated banking & finance"]),
+    ("WORKED WITH", ["Wells Fargo · Oracle · Infosys",
+                     "Clients: Charles Schwab · Dow Jones · UNO"]),
+    ("FOCUS", ["Platform Modernization · Applied AI · Governance"]),
+    ("AI PROJECTS", ["Krishna Uvaca · ObserverPrime · Elara · ApplyPilot"]),
+    ("EDUCATION", ["Post Graduation - IIIT Bangalore",
+                   "MBA - ICFAI",
+                   "Graduation - BITS-Pilani, Rajasthan"]),
 ]
 STACK = ["Python", "RAG", "LangChain", "ChromaDB", "Prompt Eng.", "AI Guardrails",
          "Kafka", "Azure", "Apigee", "PeopleSoft", "CI/CD", "Playwright"]
-LINKS = ["github.com/sandeepmidde", "linkedin.com/in/sandeepmidde", "sandeepmidde.com"]
+# github.com is left out: visitors are already on GitHub
+LINKS = [("IN", "linkedin.com/in/sandeepmidde"), ("WEB", "sandeepmidde.com")]
 TAG_TOP = "TECHNOLOGY · DELIVERY · APPLIED AI"
 TAG_SUB = "Modernizing regulated platforms · shipping GenAI"
 PROMPT = "~/sandeep $ ./deliver --modernize --ai"
@@ -60,8 +66,8 @@ THEMES = {
 }
 
 # ---- portrait ----------------------------------------------------------------
-COLS, ROWS_N = 100, 52
-PORT_X, PORT_Y, PORT_W, PORT_H = 54, 112, 384, 368
+COLS, ROWS_N = 100, 58
+PORT_X, PORT_Y, PORT_W, PORT_H = 54, 114, 384, 408
 CELL_H = PORT_H / ROWS_N
 FONT_ASCII = 6.9
 
@@ -69,7 +75,7 @@ FONT_ASCII = 6.9
 def cutout(photo):
     """Head + shoulders crop and a foreground mask (GrabCut seeded by shape)."""
     img = cv2.imread(str(photo))
-    img = img[20:780, 40:832]
+    img = img[20:860, 40:832]
     h, w = img.shape[:2]
     yy, xx = np.mgrid[0:h, 0:w]
     cx = 400
@@ -206,8 +212,8 @@ def typing(roles, x, y, size, t, gid):
 def build_svg(theme, rows):
     t = THEMES[theme]
     o = []
-    label = (f"{NAME} - {ROLES[0]}. {ROWS[0][1]}. Previously {ROWS[1][1]}. "
-             f"Focus: {ROWS[2][1]}. Building {ROWS[3][1]}.")
+    label = f"{NAME} - {ROLES[0]}. " + " ".join(
+        f"{k.capitalize()}: {'; '.join(v)}." for k, v in ROWS)
     o.append(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
              f'viewBox="0 0 {W} {H}" role="img" aria-label="{escape(label)}">')
     o.append(f"<title>{escape(NAME)} - profile</title>")
@@ -294,11 +300,12 @@ def build_svg(theme, rows):
     o.append("</g>")
 
     # left card
+    cb = CARD_Y + CARD_H
     o.append(f'<g font-family="{MONO}">{reveal(0.05, .6)}')
-    o.append(f'<rect x="28" y="72" width="436" height="510" rx="16" fill="url(#glass)" stroke="url(#shimmer)" filter="url(#soft)"/>')
-    o.append(f'<rect x="28" y="72" width="436" height="510" rx="16" fill="url(#sheen)"/>')
-    o.append(f'<text x="48" y="98" font-size="10.5" fill="{t["label"]}" letter-spacing="2.2" font-weight="600">VISUAL.MAP</text>')
-    o.append(f'<text x="444" y="98" font-size="10" fill="{t["dim"]}" text-anchor="end">ascii · {COLS}×{ROWS_N}</text>')
+    o.append(f'<rect x="28" y="{CARD_Y}" width="436" height="{CARD_H}" rx="16" fill="url(#glass)" stroke="url(#shimmer)" filter="url(#soft)"/>')
+    o.append(f'<rect x="28" y="{CARD_Y}" width="436" height="{CARD_H}" rx="16" fill="url(#sheen)"/>')
+    o.append(f'<text x="48" y="99" font-size="12" fill="{t["label"]}" letter-spacing="2.4" font-weight="700">VISUAL.MAP</text>')
+    o.append(f'<text x="444" y="99" font-size="11" fill="{t["dim"]}" text-anchor="end">ascii · {COLS}×{ROWS_N}</text>')
     o.append(f'<rect x="{PORT_X}" y="{PORT_Y}" width="{PORT_W}" height="{PORT_H}" rx="12" fill="{t["port_bg"]}" '
              f'fill-opacity="{t["port_op"]}" stroke="{t["stroke"]}" stroke-opacity="{t["stroke_op"]}"/>')
     # corner brackets
@@ -315,83 +322,87 @@ def build_svg(theme, rows):
     o.append('<animate attributeName="opacity" values="1;1;.86;1;1;1" keyTimes="0;.62;.63;.64;.9;1" '
              'dur="11s" repeatCount="indefinite"/>')
     for r, line in enumerate(rows):
-        y = PORT_Y + 6 + (r + 0.8) * CELL_H
+        y = PORT_Y + 4 + (r + 0.8) * CELL_H
         o.append(f'<text x="{PORT_X}" y="{y:.1f}" textLength="{PORT_W}" lengthAdjust="spacingAndGlyphs">'
-                 f'{escape(line).replace(" ", NBSP)}{reveal(0.25 + r * 0.022, .3)}</text>')
+                 f'{escape(line).replace(" ", NBSP)}{reveal(0.25 + r * 0.02, .3)}</text>')
     o.append("</g>")
     o.append(f'<rect x="{PORT_X}" y="{PORT_Y}" width="{PORT_W}" height="2" fill="{t["a2"]}" opacity="{t["scan_op"]}">'
              f'<animate attributeName="y" values="{PORT_Y};{PORT_Y + PORT_H};{PORT_Y}" dur="6s" repeatCount="indefinite"/></rect>')
     o.append("</g>")
     cx = 246
-    o.append(f'<text x="{cx}" y="510" font-size="10.5" fill="url(#accent)" letter-spacing="2.2" font-weight="700" '
+    o.append(f'<text x="{cx}" y="{cb - 92}" font-size="12.5" fill="url(#accent)" letter-spacing="2.2" font-weight="700" '
              f'text-anchor="middle">{escape(TAG_TOP)}{reveal(1.4)}</text>')
-    o.append(f'<text x="{cx}" y="534" font-size="12" fill="{t["muted"]}" text-anchor="middle">'
-             f'{escape(TAG_SUB)}{reveal(1.6)}</text>')
-    pw = len(PROMPT) * 7.2
-    px0 = cx - pw / 2
-    o.append(f'<g>{reveal(1.8)}<text x="{px0:.1f}" y="562" font-size="12" fill="{t["a3"]}" textLength="{pw:.1f}" '
+    o.append(f'<text x="{cx}" y="{cb - 64}" font-size="14" fill="{t["muted"]}" text-anchor="middle" '
+             f'textLength="{len(TAG_SUB) * 8.1:.1f}" lengthAdjust="spacingAndGlyphs">{escape(TAG_SUB)}{reveal(1.6)}</text>')
+    pw = len(PROMPT) * 8.4
+    px0 = cx - pw / 2 - 5
+    o.append(f'<g>{reveal(1.8)}<text x="{px0:.1f}" y="{cb - 30}" font-size="14" fill="{t["a3"]}" textLength="{pw:.1f}" '
              f'lengthAdjust="spacingAndGlyphs">{escape(PROMPT)}</text>'
-             f'<rect x="{px0 + pw + 3:.1f}" y="552" width="7" height="13" fill="{t["a2"]}">'
+             f'<rect x="{px0 + pw + 4:.1f}" y="{cb - 42}" width="8" height="15" fill="{t["a2"]}">'
              f'<animate attributeName="opacity" values="1;0;1" dur="1.05s" calcMode="discrete" repeatCount="indefinite"/></rect></g>')
     o.append("</g>")
 
     # right card
-    X0, LBL, VAL, XR = 504, 618, 634, 1132
+    X0, LBL, VAL, XR = 504, 632, 650, 1132
+    VF, LF, VC = 15.5, 12, 9.3  # value font, label font, value char width
     o.append(f'<g font-family="{MONO}">{reveal(0.15, .6)}')
-    o.append(f'<rect x="484" y="72" width="668" height="510" rx="16" fill="url(#glass)" stroke="url(#shimmer)" filter="url(#soft)"/>')
-    o.append(f'<rect x="484" y="72" width="668" height="510" rx="16" fill="url(#sheen)"/>')
-    o.append(f'<text x="{X0}" y="98" font-size="10.5" fill="{t["label"]}" letter-spacing="2.2" font-weight="600">SYSTEM.INFO</text>')
-    o.append(f'<text x="{XR}" y="98" font-size="10" fill="{t["dim"]}" text-anchor="end">uptime ~20y · build 2026</text>')
-    o.append(f'<text x="{X0}" y="128" font-size="12.5">{reveal(0.5)}<tspan fill="{t["a3"]}">{HANDLE}:~$</tspan>'
+    o.append(f'<rect x="484" y="{CARD_Y}" width="668" height="{CARD_H}" rx="16" fill="url(#glass)" stroke="url(#shimmer)" filter="url(#soft)"/>')
+    o.append(f'<rect x="484" y="{CARD_Y}" width="668" height="{CARD_H}" rx="16" fill="url(#sheen)"/>')
+    o.append(f'<text x="{X0}" y="99" font-size="12" fill="{t["label"]}" letter-spacing="2.4" font-weight="700">SYSTEM.INFO</text>')
+    o.append(f'<text x="{XR}" y="99" font-size="11" fill="{t["dim"]}" text-anchor="end">uptime ~20y · build 2026</text>')
+    o.append(f'<text x="{X0}" y="131" font-size="14">{reveal(0.5)}<tspan fill="{t["a3"]}">{HANDLE}:~$</tspan>'
              f'<tspan fill="{t["muted"]}"> ./profile.sh</tspan></text>')
-    o.append(f'<text x="{X0}" y="174" font-size="34" font-weight="700" fill="url(#name)" letter-spacing=".5">'
+    o.append(f'<text x="{X0}" y="182" font-size="40" font-weight="700" fill="url(#name)" letter-spacing=".5">'
              f'{escape(NAME)}{reveal(0.9, .6, rise=6)}</text>')
-    roles_svg = typing(ROLES, X0 + 22, 208, 17, t, f"role{theme}")
-    o.append(f'<g>{reveal(1.2)}<text x="{X0}" y="208" font-size="17" fill="{t["a2"]}" font-weight="700">›</text>'
+    roles_svg = typing(ROLES, X0 + 26, 220, 20, t, f"role{theme}")
+    o.append(f'<g>{reveal(1.2)}<text x="{X0}" y="220" font-size="20" fill="{t["a2"]}" font-weight="700">›</text>'
              f'{roles_svg}</g>')
-    o.append(f'<line x1="{X0}" y1="228" x2="{XR}" y2="228" stroke="{t["stroke"]}" stroke-opacity="{t["stroke_op"]}"/>')
-    for i, (k, v) in enumerate(ROWS):
-        y = 260 + i * 29
-        o.append(f'<g>{reveal(1.6 + i * 0.15, .45)}'
-                 f'<text x="{LBL}" y="{y}" font-size="11" fill="{t["label"]}" text-anchor="end" letter-spacing="1.4" '
-                 f'font-weight="600">{k}</text>'
-                 f'<text x="{VAL}" y="{y}" font-size="13" fill="{t["text"]}">{escape(v)}</text></g>')
+    o.append(f'<line x1="{X0}" y1="240" x2="{XR}" y2="240" stroke="{t["stroke"]}" stroke-opacity="{t["stroke_op"]}"/>')
+    y = 272
+    for i, (k, vals) in enumerate(ROWS):
+        parts = [f'<text x="{LBL}" y="{y}" font-size="{LF}" fill="{t["label"]}" text-anchor="end" '
+                 f'letter-spacing="1.2" font-weight="700">{k}</text>']
+        for j, v in enumerate(vals):
+            assert VAL + len(v) * VC <= XR, v
+            parts.append(f'<text x="{VAL}" y="{y + j * 23}" font-size="{VF}" fill="{t["text"]}" '
+                         f'textLength="{len(v) * VC:.1f}" lengthAdjust="spacingAndGlyphs">{escape(v)}</text>')
+        o.append(f'<g>{reveal(1.6 + i * 0.15, .45)}{"".join(parts)}</g>')
+        y += 23 * (len(vals) - 1) + 32
     # stack pills
-    sy = 260 + len(ROWS) * 29 + 4
-    o.append(f'<text x="{LBL}" y="{sy + 1}" font-size="11" fill="{t["label"]}" text-anchor="end" '
-             f'letter-spacing="1.4" font-weight="600">{reveal(2.4)}STACK</text>')
-    x, y = VAL, sy - 15
+    sy = y + 2
+    o.append(f'<text x="{LBL}" y="{sy}" font-size="{LF}" fill="{t["label"]}" text-anchor="end" '
+             f'letter-spacing="1.2" font-weight="700">{reveal(2.4)}STACK</text>')
+    x, py = VAL, sy - 17
+    pc = 7.8
     for i, s in enumerate(STACK):
-        pw = len(s) * 7.0 + 30
+        pw = len(s) * pc + 32
         if x + pw > XR:
-            x, y = VAL, y + 30
+            x, py = VAL, py + 32
         col = [t["a1"], t["a2"], t["a3"]][i % 3]
         o.append(f'<g>{reveal(2.45 + i * 0.05, .35)}<g>'
                  f'<animateTransform attributeName="transform" type="translate" values="0 0;0 -1.4;0 0" '
                  f'dur="{4 + (i % 4) * 0.7:.1f}s" begin="{i * 0.3:.1f}s" repeatCount="indefinite"/>'
-                 f'<rect x="{x}" y="{y}" width="{pw:.0f}" height="22" rx="11" fill="{t["pill_fill"]}" '
+                 f'<rect x="{x:.1f}" y="{py}" width="{pw:.0f}" height="25" rx="12.5" fill="{t["pill_fill"]}" '
                  f'fill-opacity="{t["pill_op"]}" stroke="{col}" stroke-opacity=".55"/>'
-                 f'<circle cx="{x + 12}" cy="{y + 11}" r="3" fill="{col}"/>'
-                 f'<text x="{x + 21}" y="{y + 15}" font-size="11.5" fill="{t["text"]}" textLength="{len(s) * 7.0:.1f}" '
+                 f'<circle cx="{x + 13:.1f}" cy="{py + 12.5}" r="3.2" fill="{col}"/>'
+                 f'<text x="{x + 23:.1f}" y="{py + 17}" font-size="13" fill="{t["text"]}" textLength="{len(s) * pc:.1f}" '
                  f'lengthAdjust="spacingAndGlyphs">{escape(s)}</text></g></g>')
         x += pw + 8
-    ly = 538
-    o.append(f'<line x1="{X0}" y1="{ly - 28}" x2="{XR}" y2="{ly - 28}" stroke="{t["stroke"]}" stroke-opacity="{t["stroke_op"]}"/>')
-    tags = ["GH", "IN", "WEB"]
-    widths = [len(tg) * 6.6 + 12 + 6 + len(lk) * 7.2 for tg, lk in zip(tags, LINKS)]
-    gapw = 22
+    ly = cb - 26
+    assert py + 25 < ly - 28, "stack pills overlap the links"
+    o.append(f'<line x1="{X0}" y1="{ly - 26}" x2="{XR}" y2="{ly - 26}" stroke="{t["stroke"]}" stroke-opacity="{t["stroke_op"]}"/>')
+    lc, gapw = 8.6, 36
+    widths = [len(tg) * 7.4 + 14 + 8 + len(lk) * lc for tg, lk in LINKS]
     x = (X0 + XR) / 2 - (sum(widths) + gapw * (len(LINKS) - 1)) / 2
-    for i, (tg, lk) in enumerate(zip(tags, LINKS)):
-        tw = len(tg) * 6.6 + 12
-        o.append(f'<g>{reveal(3.0 + i * 0.12)}<rect x="{x:.1f}" y="{ly - 13}" width="{tw:.1f}" height="18" rx="5" '
+    for i, (tg, lk) in enumerate(LINKS):
+        tw = len(tg) * 7.4 + 14
+        o.append(f'<g>{reveal(3.0 + i * 0.12)}<rect x="{x:.1f}" y="{ly - 15}" width="{tw:.1f}" height="21" rx="5" '
                  f'fill="none" stroke="{t["a2"]}" stroke-opacity=".6"/>'
-                 f'<text x="{x + tw / 2:.1f}" y="{ly}" font-size="10" fill="{t["a2"]}" text-anchor="middle" '
+                 f'<text x="{x + tw / 2:.1f}" y="{ly}" font-size="11.5" fill="{t["a2"]}" text-anchor="middle" '
                  f'font-weight="700">{tg}</text>'
-                 f'<text x="{x + tw + 6:.1f}" y="{ly}" font-size="12" fill="{t["muted"]}" '
-                 f'textLength="{len(lk) * 7.2:.1f}" lengthAdjust="spacingAndGlyphs">{escape(lk)}</text></g>')
+                 f'<text x="{x + tw + 8:.1f}" y="{ly}" font-size="14.5" fill="{t["muted"]}" '
+                 f'textLength="{len(lk) * lc:.1f}" lengthAdjust="spacingAndGlyphs">{escape(lk)}</text></g>')
         x += widths[i] + gapw
-    o.append(f'<text x="{(X0 + XR) / 2}" y="566" font-size="10" fill="{t["dim"]}" text-anchor="middle">'
-             f'{reveal(3.4)}rendered from text · no scripts · SMIL animation</text>')
     o.append("</g>")
     o.append("</svg>")
     return "\n".join(o)

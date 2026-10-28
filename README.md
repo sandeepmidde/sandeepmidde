@@ -43,7 +43,7 @@ with its own evaluation harness.
 | [**Krishna Uvaca**](https://sandeepmidde.com/posts/krishna-uvaca/) | RAG-based conversational AI: context-aware retrieval, grounded answers, multi-turn memory |
 | [**ObserverPrime**](https://sandeepmidde.com/posts/observer-prime/) | Agentic workflow automation: multi-stage pipelines, provider-agnostic LLMs, resumable runs |
 | [**Elara**](https://sandeepmidde.com/posts/project-elara/) | AI knowledge management: turns saved PDFs, links and notes into searchable knowledge cards |
-| **ApplyPilot** | Local-first job-search assistant: multi-source job discovery, AI fit scoring, ATS keyword match, cloud autopilot |
+| [**ApplyPilot · AutoPilot**](https://autopilot.sandeepmidde.com) | Local-first job-search assistant: multi-source job discovery, AI fit scoring, ATS keyword match; the AutoPilot page runs it from anywhere |
 
 ### ⚙️ Engineering stack
 
@@ -69,14 +69,6 @@ Graduation - BITS-Pilani, Rajasthan
 - [Observer Prime: Unified Agentic Orchestration](https://sandeepmidde.com/posts/observer-prime/)
 - [Project Elara: Contextual Knowledge OS](https://sandeepmidde.com/posts/project-elara/)
 - More on [sandeepmidde.com/blog](https://sandeepmidde.com/blog.html)
-
-### 📊 GitHub contributions
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sandeepmidde/sandeepmidde/output/github-snake-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/sandeepmidde/sandeepmidde/output/github-snake.svg">
-  <img src="https://raw.githubusercontent.com/sandeepmidde/sandeepmidde/output/github-snake.svg" width="100%" alt="Contribution graph being eaten by a snake">
-</picture>
 
 ### 📫 Connect
 

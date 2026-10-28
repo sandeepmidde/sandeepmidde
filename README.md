@@ -4,15 +4,45 @@
   <img src="./dark.svg" width="100%" alt="Sandeep Midde - Technology & Delivery Leader. About 20 years modernizing regulated banking and finance platforms; previously VP at Wells Fargo, Oracle and Infosys; building GenAI systems.">
 </picture>
 
-## Hi, I'm Sandeep Midde 👋
+<table width="100%">
+<tr>
+<td width="60%" align="center" valign="middle">
 
-**Technology & Delivery Leader** · **Platform Modernization** · **Applied AI**
+<h1 align="center">Hi 👋, I'm Sandeep Midde</h1>
 
-🚀 Building GenAI products · 🏦 Modernizing regulated platforms · 🧭 Delivery governance
+<h3 align="center">Technology & Delivery Leader • Platform Modernization • Applied AI</h3>
 
-I've spent about 20 years modernizing legacy platforms in highly regulated environments, redesigning
-mission-critical systems for compliance, resilience and scale. These days I design and ship GenAI
-systems end to end: RAG, agentic workflows and knowledge platforms.
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3200&pause=1000&color=22D3EE&center=true&vCenter=true&width=560&lines=Technology+%26+Delivery+Leader;Principal+AI+Technical+Product+Manager;Modernizing+regulated+platforms;Shipping+GenAI%3A+RAG+%7C+Agents+%7C+Knowledge" alt="Roles, typed one after another">
+</p>
+
+<p align="center">
+I've spent about 20 years modernizing legacy platforms in highly regulated environments,
+redesigning mission-critical systems for compliance, resilience and scale. These days I design
+and ship GenAI systems end to end: RAG, agentic workflows and knowledge platforms.
+</p>
+
+</td>
+<td width="40%" align="center" valign="middle">
+
+<img src="./assets/face.png" width="300" alt="Sandeep Midde">
+
+</td>
+</tr>
+</table>
+
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" height="34" alt="Python">&nbsp;&nbsp;
+  <img src="https://cdn.simpleicons.org/langchain" height="34" alt="LangChain">&nbsp;&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachekafka/apachekafka-original.svg" height="34" alt="Kafka">&nbsp;&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" height="34" alt="Azure">&nbsp;&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg" height="34" alt="Oracle">&nbsp;&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/salesforce/salesforce-original.svg" height="34" alt="Salesforce">&nbsp;&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/playwright/playwright-original.svg" height="34" alt="Playwright">&nbsp;&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" height="34" alt="Jenkins">&nbsp;&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" height="34" alt="Git">&nbsp;&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jira/jira-original.svg" height="34" alt="Jira">
+</p>
 
 ---
 

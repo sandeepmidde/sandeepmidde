@@ -60,7 +60,7 @@ with its own evaluation harness.
 | [**Krishna Uvaca**](https://sandeepmidde.com/posts/krishna-uvaca/) | RAG-based conversational AI: context-aware retrieval, grounded answers, multi-turn memory |
 | [**ObserverPrime**](https://sandeepmidde.com/posts/observer-prime/) | Agentic workflow automation: multi-stage pipelines, provider-agnostic LLMs, resumable runs |
 | [**Elara**](https://sandeepmidde.com/posts/project-elara/) | AI knowledge management: turns saved PDFs, links and notes into searchable knowledge cards |
-| [**ApplyPilot · AutoPilot**](https://autopilot.sandeepmidde.com) | Local-first job-search assistant: multi-source job discovery, AI fit scoring, ATS keyword match; the AutoPilot page runs it from anywhere |
+| [**AutoPilot**](https://autopilot.sandeepmidde.com) | AI job-search assistant: multi-source job discovery, AI fit scoring, ATS keyword match; runs locally and from anywhere |
 
 ### ⚙️ Engineering stack
 

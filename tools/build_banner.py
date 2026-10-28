@@ -19,7 +19,7 @@ CARD_Y, CARD_H = 72, 580
 NBSP = " "  # spaces that SVG renderers never collapse
 MONO = "ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono',monospace"
 
-# ---- profile (all from the resume / ApplyPilot profile; nothing invented) ----
+# ---- profile (all from the resume and the user's saved job-search profile; nothing invented) ----
 HANDLE = "sandeep@midde"
 NAME = "Sandeep Midde"
 ROLES = [
@@ -33,7 +33,7 @@ ROWS = [
     ("WORKED WITH", ["Wells Fargo · Oracle · Infosys",
                      "Charles Schwab · Dow Jones · UNO"]),
     ("FOCUS", ["Platform Modernization · Applied AI · Governance"]),
-    ("AI PROJECTS", ["Krishna Uvaca · ObserverPrime · Elara · ApplyPilot"]),
+    ("AI PROJECTS", ["Krishna Uvaca · ObserverPrime · Elara · AutoPilot"]),
     ("EDUCATION", ["Post Graduation - IIIT Bangalore",
                    "MBA - ICFAI",
                    "Graduation - BITS-Pilani, Rajasthan"]),

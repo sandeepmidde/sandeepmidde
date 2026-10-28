@@ -19,16 +19,16 @@ and ship GenAI systems end to end: RAG, agentic workflows and knowledge platform
 </p>
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" height="34" alt="Python">&nbsp;&nbsp;
-  <img src="https://cdn.simpleicons.org/langchain" height="34" alt="LangChain">&nbsp;&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachekafka/apachekafka-original.svg" height="34" alt="Kafka">&nbsp;&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" height="34" alt="Azure">&nbsp;&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg" height="34" alt="Oracle">&nbsp;&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/salesforce/salesforce-original.svg" height="34" alt="Salesforce">&nbsp;&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/playwright/playwright-original.svg" height="34" alt="Playwright">&nbsp;&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" height="34" alt="Jenkins">&nbsp;&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" height="34" alt="Git">&nbsp;&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jira/jira-original.svg" height="34" alt="Jira">
+  <a href="https://www.python.org" title="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" height="34" alt="Python" title="Python"></a>&nbsp;&nbsp;
+  <a href="https://www.langchain.com" title="LangChain"><img src="https://cdn.simpleicons.org/langchain" height="34" alt="LangChain" title="LangChain"></a>&nbsp;&nbsp;
+  <a href="https://kafka.apache.org" title="Apache Kafka"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachekafka/apachekafka-original.svg" height="34" alt="Apache Kafka" title="Apache Kafka"></a>&nbsp;&nbsp;
+  <a href="https://azure.microsoft.com" title="Microsoft Azure"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" height="34" alt="Microsoft Azure" title="Microsoft Azure"></a>&nbsp;&nbsp;
+  <a href="https://www.oracle.com" title="Oracle / PeopleSoft"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg" height="34" alt="Oracle / PeopleSoft" title="Oracle / PeopleSoft"></a>&nbsp;&nbsp;
+  <a href="https://www.salesforce.com" title="Salesforce"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/salesforce/salesforce-original.svg" height="34" alt="Salesforce" title="Salesforce"></a>&nbsp;&nbsp;
+  <a href="https://playwright.dev" title="Playwright"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/playwright/playwright-original.svg" height="34" alt="Playwright" title="Playwright"></a>&nbsp;&nbsp;
+  <a href="https://www.jenkins.io" title="Jenkins"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" height="34" alt="Jenkins" title="Jenkins"></a>&nbsp;&nbsp;
+  <a href="https://git-scm.com" title="Git"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" height="34" alt="Git" title="Git"></a>&nbsp;&nbsp;
+  <a href="https://www.atlassian.com/software/jira" title="Jira"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jira/jira-original.svg" height="34" alt="Jira" title="Jira"></a>
 </p>
 
 ---
